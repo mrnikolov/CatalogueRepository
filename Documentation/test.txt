@@ -2,5 +2,4 @@
 Test edit.
 No this is a test edit!
 =======
-Test edit 2
->>>>>>> origin/master
+

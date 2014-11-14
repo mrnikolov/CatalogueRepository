@@ -1,0 +1,9 @@
+ERROR 2014-11-14 14:09:33,132   361ms HomeController         Index              - An error happened!
+System.InvalidOperationException: Operation is not valid due to the current state of the object.
+   at Catalogue.Web.Controllers.HomeController.Index() in d:\Programming\GitHub\CatalogueRepository\Catalogue\Catalogue.Web\Controllers\HomeController.cs:line 18
+ERROR 2014-11-14 14:09:42,343  9571ms HomeController         Index              - An error happened!
+System.InvalidOperationException: Operation is not valid due to the current state of the object.
+   at Catalogue.Web.Controllers.HomeController.Index() in d:\Programming\GitHub\CatalogueRepository\Catalogue\Catalogue.Web\Controllers\HomeController.cs:line 18
+ERROR 2014-11-14 14:10:09,361 36589ms HomeController         Index              - An error happened!
+System.InvalidOperationException: Operation is not valid due to the current state of the object.
+   at Catalogue.Web.Controllers.HomeController.Index() in d:\Programming\GitHub\CatalogueRepository\Catalogue\Catalogue.Web\Controllers\HomeController.cs:line 18

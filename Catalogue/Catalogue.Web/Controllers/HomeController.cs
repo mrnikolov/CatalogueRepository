@@ -9,14 +9,9 @@ namespace Catalogue.Web.Controllers
 {
     public class HomeController : Controller
     {
-        ILog logger;
-        public HomeController()
-        {
-            this.logger = LogManager.GetLogger(typeof(HomeController));
-        }
         public ActionResult Index()
         {
-           
+            ILog logger = LogManager.GetLogger(typeof(HomeController));
 
             try
             {
@@ -29,7 +24,5 @@ namespace Catalogue.Web.Controllers
 
             return View();
         }
-
-        
     }
 }

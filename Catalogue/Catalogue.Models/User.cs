@@ -8,5 +8,6 @@ namespace Catalogue.Models
 {
     public class User
     {
+        int Id;
     }
 }

@@ -10,5 +10,6 @@ namespace Catalogue.Models
     {
         int Id;
         string UserName;
+        //Comment
     }
 }

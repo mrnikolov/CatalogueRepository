@@ -28,6 +28,7 @@ namespace Catalogue.Web.Infrastructure
 
         private void AddBindings()
         {
+
         }
     }
 }

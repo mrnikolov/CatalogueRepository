@@ -10,26 +10,26 @@ namespace Catalogue.Web.Infrastructure
 {
     public class NinjectDependencyResolver : IDependencyResolver
     {
-        private IKernel kernal;
+        private IKernel kernel;
         public NinjectDependencyResolver(IKernel kernelParam)
         {
-            kernal = kernelParam;
+            kernel = kernelParam;
             AddBindings();
         }
 
         public object GetService(Type serviceType)
         {
-            return kernal.TryGet(serviceType);
+            return kernel.TryGet(serviceType);
         }
 
         public IEnumerable<object> GetServices(Type serviceType)
         {
-            return kernal.GetAll(serviceType);
+            return kernel.GetAll(serviceType);
         }
 
         private void AddBindings()
         {
-            kernal.Bind<ILog>().ToMethod(x => LogManager.GetLogger(typeof(Controller)))
+            kernel.Bind<ILog>().ToMethod(x => LogManager.GetLogger(typeof(Controller)))
                 .InSingletonScope();
         }
     }

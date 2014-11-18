@@ -1,4 +1,5 @@
-﻿using Ninject;
+﻿using log4net;
+using Ninject;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -28,6 +29,8 @@ namespace Catalogue.Web.Infrastructure
 
         private void AddBindings()
         {
+            kernal.Bind<ILog>().ToMethod(x => LogManager.GetLogger(typeof(Controller)))
+                .InSingletonScope();
         }
     }
 }

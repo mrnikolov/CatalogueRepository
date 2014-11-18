@@ -8,14 +8,23 @@ using System.Web.Security;
 using System.Web.SessionState;
 using System.Web.Http;
 using System.IO;
+using log4net;
 
 namespace Catalogue.Web
 {
     public class Global : HttpApplication
     {
+        private static readonly ILog log = LogManager.GetLogger(typeof(Global));
+
+        void Application_Error(Object sender, EventArgs e)
+        {
+            Exception ex = Server.GetLastError().GetBaseException();
+
+            log.Error("App_Error", ex);
+        }
+
         void Application_Start(object sender, EventArgs e)
         {
-            // Code that runs on application startup
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             RouteConfig.RegisterRoutes(RouteTable.Routes);

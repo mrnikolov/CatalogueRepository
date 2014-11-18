@@ -1,4 +1,4 @@
-namespace Catalogue.Models
+namespace Catalogue.Models.Entities
 {
     using System;
     using System.Collections.Generic;

@@ -10,6 +10,6 @@ namespace Catalogue.Models.Services
 {
     public class EFProductRepository : IProductRepository
     {
-        public IEnumerable<Product> Products { get; set; }
+        public IEnumerable<Products> Products { get; set; }
     }
 }

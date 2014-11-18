@@ -9,6 +9,6 @@ namespace Catalogue.Models.Abstract
 {
     public interface IProductRepository
     {
-        IEnumerable<Product> Products { get; }
+        IEnumerable<Products> Products { get; }
     }
 }

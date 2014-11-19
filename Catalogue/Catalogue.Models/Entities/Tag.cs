@@ -8,11 +8,6 @@ namespace Catalogue.Models.Entities
 
     public partial class Tag
     {
-        public Tag()
-        {
-            ProductsTags = new HashSet<ProductTag>();
-        }
-
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int TagID { get; set; }

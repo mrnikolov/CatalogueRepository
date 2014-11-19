@@ -8,11 +8,6 @@ namespace Catalogue.Models.Entities
 
     public partial class Manufacturer
     {
-        public Manufacturer()
-        {
-            Products = new HashSet<Product>();
-        }
-
         [Key]
         public int ManufacturerID { get; set; }
 
@@ -21,7 +16,5 @@ namespace Catalogue.Models.Entities
         public string Name { get; set; }
 
         public string Description { get; set; }
-
-        public virtual ICollection<Product> Products { get; set; }
     }
 }

@@ -2,7 +2,7 @@
 using System.Data.Entity;
 namespace Catalogue.Models.Entities
 {
-    public interface ICatalogueModels
+    public interface ICatalogueContext
     {
         DbSet<Category> Categories { get; set; }
         DbSet<Comment> Comments { get; set; }
@@ -14,7 +14,6 @@ namespace Catalogue.Models.Entities
         DbSet<ProductTag> ProductsTags { get; set; }
         DbSet<Rating> Ratings { get; set; }
         DbSet<Tag> Tags { get; set; }
-        DbSet<User> Users { get; set; }
         DbSet<Wishlist> Wishlists { get; set; }
     }
 }

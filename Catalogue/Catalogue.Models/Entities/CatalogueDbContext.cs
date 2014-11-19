@@ -7,17 +7,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Catalogue.Models.Concrete
+namespace Catalogue.Models.Entities
 {
-    public class CatalogueDbContext : IdentityDbContext<User>
+    public class CatalogueDbContext : IdentityDbContext<User>, ICatalogueContext
     {
         public CatalogueDbContext()
             : base("DefaultConnection")
         {
-            #if DEBUG
-                this.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
-            #endif
-                this.Configuration.LazyLoadingEnabled = false;
+#if DEBUG
+            this.Database.Log = s => System.Diagnostics.Debug.WriteLine(s);
+#endif
+            this.Configuration.LazyLoadingEnabled = false;
         }
 
         public virtual DbSet<Category> Categories { get; set; }

@@ -11,13 +11,7 @@ namespace Catalogue.Models.Entities
     {
         public User()
         {
-            Comments = new HashSet<Comment>();
-            LikesDislikes = new HashSet<LikeDislike>();
-            Ratings = new HashSet<Rating>();
-            UserClaim = new HashSet<UserClaim>();
-            UserLogin = new HashSet<UserLogin>();
             Wishlists = new HashSet<Wishlist>();
-            UserRole = new HashSet<UserRole>();
         }
 
         [Key]
@@ -35,18 +29,7 @@ namespace Catalogue.Models.Entities
 
         public short Gender { get; set; }
 
-        public virtual ICollection<Comment> Comments { get; set; }
-
-        public virtual ICollection<LikeDislike> LikesDislikes { get; set; }
-
-        public virtual ICollection<Rating> Ratings { get; set; }
-
-        public virtual ICollection<UserClaim> UserClaim { get; set; }
-
-        public virtual ICollection<UserLogin> UserLogin { get; set; }
-
         public virtual ICollection<Wishlist> Wishlists { get; set; }
 
-        public virtual ICollection<UserRole> UserRole { get; set; }
     }
 }

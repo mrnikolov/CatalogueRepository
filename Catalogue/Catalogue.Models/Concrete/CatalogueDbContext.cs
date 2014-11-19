@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Catalogue.Models.Concrete
 {
-    public class CatalogueDbContext : IdentityDbContext<Users>
+    public class CatalogueDbContext : IdentityDbContext<User>
     {
         public CatalogueDbContext()
             : base("DefaultConnection")
@@ -20,16 +20,16 @@ namespace Catalogue.Models.Concrete
                 this.Configuration.LazyLoadingEnabled = false;
         }
 
-        public virtual DbSet<Categories> Categories { get; set; }
-        public virtual DbSet<Comments> Comments { get; set; }
-        public virtual DbSet<Images> Images { get; set; }
-        public virtual DbSet<LikesDislikes> LikesDislikes { get; set; }
-        public virtual DbSet<Manufacturers> Manufacturers { get; set; }
+        public virtual DbSet<Category> Categories { get; set; }
+        public virtual DbSet<Comment> Comments { get; set; }
+        public virtual DbSet<Image> Images { get; set; }
+        public virtual DbSet<LikeDislike> LikesDislikes { get; set; }
+        public virtual DbSet<Manufacturer> Manufacturers { get; set; }
         public virtual DbSet<ProductCategory> ProductCategory { get; set; }
-        public virtual DbSet<Products> Products { get; set; }
-        public virtual DbSet<ProductsTags> ProductsTags { get; set; }
-        public virtual DbSet<Ratings> Ratings { get; set; }
-        public virtual DbSet<Tags> Tags { get; set; }
-        public virtual DbSet<Wishlists> Wishlists { get; set; }
+        public virtual DbSet<Product> Products { get; set; }
+        public virtual DbSet<ProductTag> ProductsTags { get; set; }
+        public virtual DbSet<Rating> Ratings { get; set; }
+        public virtual DbSet<Tag> Tags { get; set; }
+        public virtual DbSet<Wishlist> Wishlists { get; set; }
     }
 }

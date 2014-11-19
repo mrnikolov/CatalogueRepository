@@ -10,18 +10,18 @@ using Catalogue.Models.Abstract;
 
 namespace Catalogue.Web.Controllers
 {
-    public class ProductController : Controller
+    public class ProductsController : Controller
     {
-        private IProductRepository repository;
+        private IRepository<Products> repository;
 
-        public ProductController(IProductRepository productRepository)
+        public ProductsController(IRepository<Products> productRepository)
         {
             this.repository = productRepository;
         }
 
         public ActionResult Index()
         {
-            return View(repository.Products);
+            return View(repository.All());
         }
     }
 }

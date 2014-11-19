@@ -1,4 +1,4 @@
-﻿namespace Catalogue.Models
+﻿namespace Catalogue.Models.Abstract
 {
     using System.Linq;
 

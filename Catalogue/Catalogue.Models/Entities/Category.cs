@@ -8,11 +8,6 @@ namespace Catalogue.Models.Entities
 
     public partial class Category
     {
-        public Category()
-        {
-            ProductCategory = new HashSet<ProductCategory>();
-        }
-
         [Key]
         public int CategoryID { get; set; }
 
@@ -23,7 +18,5 @@ namespace Catalogue.Models.Entities
         public int? ParentCategoryID { get; set; }
 
         public virtual Category ParentCategory { get; set; }
-
-        public virtual ICollection<ProductCategory> ProductCategory { get; set; }
     }
 }

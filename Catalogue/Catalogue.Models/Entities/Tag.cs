@@ -20,7 +20,5 @@ namespace Catalogue.Models.Entities
         [Required]
         [StringLength(50)]
         public string Name { get; set; }
-
-        public virtual ICollection<ProductTag> ProductsTags { get; set; }
     }
 }

@@ -16,7 +16,6 @@ namespace Catalogue.Models.Entities
             ProductCategory = new HashSet<ProductCategory>();
             ProductsTags = new HashSet<ProductTag>();
             Ratings = new HashSet<Rating>();
-            Wishlists = new HashSet<Wishlist>();
         }
 
         [Key]
@@ -47,7 +46,5 @@ namespace Catalogue.Models.Entities
         public virtual ICollection<ProductTag> ProductsTags { get; set; }
 
         public virtual ICollection<Rating> Ratings { get; set; }
-
-        public virtual ICollection<Wishlist> Wishlists { get; set; }
     }
 }

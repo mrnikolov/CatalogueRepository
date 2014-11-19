@@ -32,7 +32,7 @@ namespace Catalogue.Web.Infrastructure
         {
             kernel.Bind<ILog>().ToMethod(x => LogManager.GetLogger(typeof(Controller)))
                 .InSingletonScope();
-            kernel.Bind(typeof(ICatalogueContext)).To(typeof(CatalogueDbContext));
+            kernel.Bind(typeof(ICatalogueContext)).To(typeof(CatalogueContext));
 
         }
     }

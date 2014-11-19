@@ -9,9 +9,9 @@ using System.Threading.Tasks;
 
 namespace Catalogue.Models.Entities
 {
-    public class CatalogueDbContext : IdentityDbContext<User>, ICatalogueContext
+    public class CatalogueContext : IdentityDbContext<User>, ICatalogueContext
     {
-        public CatalogueDbContext()
+        public CatalogueContext()
             : base("DefaultConnection")
         {
 #if DEBUG

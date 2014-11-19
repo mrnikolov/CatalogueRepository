@@ -62,9 +62,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\CatalogueDbContext.cs" />
-    <Compile Include="Entities\Categories.cs" />
-    <Compile Include="Entities\Comments.cs" />
+    <Compile Include="Entities\CatalogueContext.cs" />
+    <Compile Include="Entities\Category.cs" />
+    <Compile Include="Entities\Comment.cs" />
     <Compile Include="Entities\ICatalogueContext.cs" />
     <Compile Include="Entities\Images.cs" />
     <Compile Include="Entities\LikesDislikes.cs" />

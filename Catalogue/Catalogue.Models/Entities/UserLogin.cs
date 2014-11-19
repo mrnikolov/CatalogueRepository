@@ -22,6 +22,6 @@ namespace Catalogue.Models.Entities
         [Column(Order = 2)]
         public string ProviderKey { get; set; }
 
-        public virtual Users Users { get; set; }
+        public virtual User Users { get; set; }
     }
 }

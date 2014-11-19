@@ -11,7 +11,7 @@ namespace Catalogue.Models.Entities
     {
         public UserRole()
         {
-            Users = new HashSet<Users>();
+            Users = new HashSet<User>();
         }
 
         [Key]
@@ -22,6 +22,6 @@ namespace Catalogue.Models.Entities
         [StringLength(50)]
         public string Name { get; set; }
 
-        public virtual ICollection<Users> Users { get; set; }
+        public virtual ICollection<User> Users { get; set; }
     }
 }

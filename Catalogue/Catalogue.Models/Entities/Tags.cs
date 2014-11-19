@@ -6,11 +6,11 @@ namespace Catalogue.Models.Entities
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class Tags
+    public partial class Tag
     {
-        public Tags()
+        public Tag()
         {
-            ProductsTags = new HashSet<ProductsTags>();
+            ProductsTags = new HashSet<ProductTag>();
         }
 
         [Key]
@@ -21,6 +21,6 @@ namespace Catalogue.Models.Entities
         [StringLength(50)]
         public string Name { get; set; }
 
-        public virtual ICollection<ProductsTags> ProductsTags { get; set; }
+        public virtual ICollection<ProductTag> ProductsTags { get; set; }
     }
 }

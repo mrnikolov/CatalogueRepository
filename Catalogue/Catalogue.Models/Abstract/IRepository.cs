@@ -6,7 +6,7 @@
     {
         IQueryable<T> All();
 
-        T GetByID(int id);
+        T GetById(int id);
 
         void Add(T entity);
 

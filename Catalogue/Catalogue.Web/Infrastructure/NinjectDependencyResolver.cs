@@ -6,8 +6,6 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Catalogue.Models.Entities;
-using Catalogue.Models.Services;
-using Catalogue.Models.Abstract;
 
 namespace Catalogue.Web.Infrastructure
 {
@@ -34,7 +32,6 @@ namespace Catalogue.Web.Infrastructure
         {
             kernel.Bind<ILog>().ToMethod(x => LogManager.GetLogger(typeof(Controller)))
                 .InSingletonScope();
-            kernel.Bind(typeof(IRepository<>)).To(typeof(GenericRepository<>));
 
         }
     }

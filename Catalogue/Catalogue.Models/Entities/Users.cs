@@ -5,8 +5,9 @@ namespace Catalogue.Models.Entities
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
+    using Microsoft.AspNet.Identity.EntityFramework;
 
-    public partial class Users
+    public partial class Users : IdentityUser
     {
         public Users()
         {
@@ -24,28 +25,6 @@ namespace Catalogue.Models.Entities
 
         [Required]
         [StringLength(30)]
-        public string UserName { get; set; }
-
-        [Required]
-        [StringLength(100)]
-        public string PasswordHash { get; set; }
-
-        [Required]
-        [StringLength(100)]
-        public string Email { get; set; }
-
-        public bool EmailConfirmed { get; set; }
-
-        [StringLength(100)]
-        public string SecurityStamp { get; set; }
-
-        [StringLength(25)]
-        public string PhoneNumber { get; set; }
-
-        public bool PhoneNumberConfirmed { get; set; }
-
-        [Required]
-        [StringLength(30)]
         public string FirstName { get; set; }
 
         [StringLength(30)]
@@ -55,16 +34,6 @@ namespace Catalogue.Models.Entities
         public DateTime? BirthDate { get; set; }
 
         public short Gender { get; set; }
-
-        public bool TwoFactorEnabled { get; set; }
-
-        public DateTime? LockoutEndDateUtc { get; set; }
-
-        public bool LockoutEnabled { get; set; }
-
-        public int WishlistID { get; set; }
-
-        public int AccessFailedCount { get; set; }
 
         public virtual ICollection<Comments> Comments { get; set; }
 

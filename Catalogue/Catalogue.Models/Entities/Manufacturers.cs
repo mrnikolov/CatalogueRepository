@@ -6,11 +6,11 @@ namespace Catalogue.Models.Entities
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class Manufacturers
+    public partial class Manufacturer
     {
-        public Manufacturers()
+        public Manufacturer()
         {
-            Products = new HashSet<Products>();
+            Products = new HashSet<Product>();
         }
 
         [Key]
@@ -22,6 +22,6 @@ namespace Catalogue.Models.Entities
 
         public string Description { get; set; }
 
-        public virtual ICollection<Products> Products { get; set; }
+        public virtual ICollection<Product> Products { get; set; }
     }
 }

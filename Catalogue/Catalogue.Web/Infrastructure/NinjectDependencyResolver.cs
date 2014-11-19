@@ -34,7 +34,7 @@ namespace Catalogue.Web.Infrastructure
         {
             kernel.Bind<ILog>().ToMethod(x => LogManager.GetLogger(typeof(Controller)))
                 .InSingletonScope();
-            kernel.Bind<IRepository<Products>>().To<EFProductsRepository<Products>>();
+            kernel.Bind<IRepository<Product>>().To<EFProductsRepository<Product>>();
 
         }
     }

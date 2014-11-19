@@ -6,7 +6,7 @@ namespace Catalogue.Models.Entities
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class Ratings
+    public partial class Rating
     {
         [Key]
         public int RatingID { get; set; }
@@ -17,8 +17,8 @@ namespace Catalogue.Models.Entities
 
         public int ProductID { get; set; }
 
-        public virtual Products Products { get; set; }
+        public virtual Product Products { get; set; }
 
-        public virtual Users Users { get; set; }
+        public virtual User Users { get; set; }
     }
 }

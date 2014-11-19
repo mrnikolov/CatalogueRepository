@@ -6,17 +6,17 @@ namespace Catalogue.Models.Entities
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class Products
+    public partial class Product
     {
-        public Products()
+        public Product()
         {
-            Comments = new HashSet<Comments>();
-            Images = new HashSet<Images>();
-            LikesDislikes = new HashSet<LikesDislikes>();
+            Comments = new HashSet<Comment>();
+            Images = new HashSet<Image>();
+            LikesDislikes = new HashSet<LikeDislike>();
             ProductCategory = new HashSet<ProductCategory>();
-            ProductsTags = new HashSet<ProductsTags>();
-            Ratings = new HashSet<Ratings>();
-            Wishlists = new HashSet<Wishlists>();
+            ProductsTags = new HashSet<ProductTag>();
+            Ratings = new HashSet<Rating>();
+            Wishlists = new HashSet<Wishlist>();
         }
 
         [Key]
@@ -34,20 +34,20 @@ namespace Catalogue.Models.Entities
         [Required]
         public string Description { get; set; }
 
-        public virtual ICollection<Comments> Comments { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
 
-        public virtual ICollection<Images> Images { get; set; }
+        public virtual ICollection<Image> Images { get; set; }
 
-        public virtual ICollection<LikesDislikes> LikesDislikes { get; set; }
+        public virtual ICollection<LikeDislike> LikesDislikes { get; set; }
 
-        public virtual Manufacturers Manufacturers { get; set; }
+        public virtual Manufacturer Manufacturers { get; set; }
 
         public virtual ICollection<ProductCategory> ProductCategory { get; set; }
 
-        public virtual ICollection<ProductsTags> ProductsTags { get; set; }
+        public virtual ICollection<ProductTag> ProductsTags { get; set; }
 
-        public virtual ICollection<Ratings> Ratings { get; set; }
+        public virtual ICollection<Rating> Ratings { get; set; }
 
-        public virtual ICollection<Wishlists> Wishlists { get; set; }
+        public virtual ICollection<Wishlist> Wishlists { get; set; }
     }
 }

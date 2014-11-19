@@ -6,7 +6,7 @@ namespace Catalogue.Models.Entities
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class ProductsTags
+    public partial class ProductTag
     {
         [Key]
         public int ProductTagID { get; set; }
@@ -15,8 +15,8 @@ namespace Catalogue.Models.Entities
 
         public int TagID { get; set; }
 
-        public virtual Products Products { get; set; }
+        public virtual Product Products { get; set; }
 
-        public virtual Tags Tags { get; set; }
+        public virtual Tag Tags { get; set; }
     }
 }

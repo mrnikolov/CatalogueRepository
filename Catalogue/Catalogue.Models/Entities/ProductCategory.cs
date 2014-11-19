@@ -15,8 +15,8 @@ namespace Catalogue.Models.Entities
 
         public int ProductID { get; set; }
 
-        public virtual Categories Categories { get; set; }
+        public virtual Category Categories { get; set; }
 
-        public virtual Products Products { get; set; }
+        public virtual Product Products { get; set; }
     }
 }

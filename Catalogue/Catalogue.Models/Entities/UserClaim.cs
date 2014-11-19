@@ -18,6 +18,6 @@ namespace Catalogue.Models.Entities
 
         public string ClaimValue { get; set; }
 
-        public virtual Users Users { get; set; }
+        public virtual User Users { get; set; }
     }
 }

@@ -3,7 +3,7 @@ using Catalogue.Models.Entities;
 
 namespace Catalogue.Models
 {
-    public class ApplicationDbContext : IdentityDbContext<Users>
+    public class ApplicationDbContext : IdentityDbContext<User>
     {
         public ApplicationDbContext()
             : base("DefaultConnection")

@@ -6,9 +6,9 @@ namespace Catalogue.Models.Entities
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class Categories
+    public partial class Category
     {
-        public Categories()
+        public Category()
         {
             ProductCategory = new HashSet<ProductCategory>();
         }
@@ -22,7 +22,7 @@ namespace Catalogue.Models.Entities
 
         public int? ParentCategoryID { get; set; }
 
-        public virtual Categories ParentCategory { get; set; }
+        public virtual Category ParentCategory { get; set; }
 
         public virtual ICollection<ProductCategory> ProductCategory { get; set; }
     }

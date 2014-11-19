@@ -6,7 +6,7 @@ namespace Catalogue.Models.Entities
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
-    public partial class Images
+    public partial class Image
     {
         [Key]
         public int ImageID { get; set; }
@@ -20,6 +20,6 @@ namespace Catalogue.Models.Entities
 
         public int ProductID { get; set; }
 
-        public virtual Products Products { get; set; }
+        public virtual Product Products { get; set; }
     }
 }

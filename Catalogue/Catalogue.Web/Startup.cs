@@ -12,21 +12,21 @@ namespace Catalogue.Web
 
     public partial class Startup
     {
-        public static Func<UserManager<Users>> UserManagerFactory { get; private set; }
+        public static Func<UserManager<User>> UserManagerFactory { get; private set; }
 
         public void Configuration(IAppBuilder app) {
-            app.UseCookieAuthentication(new CookieAuthenticationOptions {
-                AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
-                LoginPath = new PathString("auth/login")
-            });
+            //app.UseCookieAuthentication(new CookieAuthenticationOptions {
+            //    AuthenticationType = DefaultAuthenticationTypes.ApplicationCookie,
+            //    LoginPath = new PathString("auth/login")
+            //});
 
-            UserManagerFactory = () =>
-            {
-                var usermanager = new UserManager<Users>
-                    (new UserStore<Users>(new ApplicationDbContext()));
+            //UserManagerFactory = () =>
+            //{
+            //    var usermanager = new UserManager<User>
+            //        (new UserStore<User>(new ApplicationDbContext()));
 
-                return usermanager;
-            };
+            //    return usermanager;
+            
         }
     }
 }

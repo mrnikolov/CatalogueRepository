@@ -12,9 +12,9 @@ namespace Catalogue.Web.Controllers
 {
     public class ProductsController : Controller
     {
-        private IRepository<Products> repository;
+        private IRepository<EFProductsRepository<Products>> repository;
 
-        public ProductsController(IRepository<Products> productRepository)
+        public ProductsController(IRepository<EFProductsRepository<Products>> productRepository)
         {
             this.repository = productRepository;
         }

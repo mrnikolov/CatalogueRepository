@@ -5,7 +5,7 @@ namespace Catalogue.Models.Entities
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Linq;
 
-    public partial class CatalogueModels : DbContext
+    public partial class CatalogueModels : DbContext, Catalogue.Models.Entities.ICatalogueModels
     {
         public CatalogueModels()
             : base("name=CatalogueModels")

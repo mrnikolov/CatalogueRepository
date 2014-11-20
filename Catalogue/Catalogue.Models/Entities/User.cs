@@ -21,12 +21,18 @@ namespace Catalogue.Models.Entities
         [StringLength(30)]
         public string LastName { get; set; }
 
-        [Column(TypeName = "date")]
+        [DataType(DataType.Date)]
         public DateTime? BirthDate { get; set; }
 
-        public short Gender { get; set; }
+        public Gender Gender { get; set; }
 
         public virtual ICollection<Wishlist> Wishlists { get; set; }
 
+    }
+
+    public enum Gender
+    {
+        Male = 1,
+        Female = 2
     }
 }

@@ -69,7 +69,6 @@
     <Compile Include="Entities\Image.cs" />
     <Compile Include="Entities\LikeDislike.cs" />
     <Compile Include="Entities\Manufacturer.cs" />
-    <Compile Include="Entities\ProductCategory.cs" />
     <Compile Include="Entities\Product.cs" />
     <Compile Include="Entities\ProductTag.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

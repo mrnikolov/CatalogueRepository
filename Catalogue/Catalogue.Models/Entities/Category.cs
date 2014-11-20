@@ -17,6 +17,19 @@ namespace Catalogue.Models.Entities
 
         public int? ParentCategoryID { get; set; }
 
-        public virtual Category ParentCategory { get; set; }
+        //public virtual Category ParentCategory { get; set; }
+
+        public ICollection<Product> products;
+
+        public Category()
+        {
+            this.products = new HashSet<Product>();
+        }
+
+        public ICollection<Product> Products
+        {
+            get { return products; }
+            set { products = value; }
+        }
     }
 }

@@ -1,11 +1,5 @@
-﻿using Catalogue.Models.Entities;
-using Microsoft.AspNet.Identity.EntityFramework;
-using System;
-using System.Collections.Generic;
+﻿using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data.Entity;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Catalogue.Models.Entities
 {
@@ -25,7 +19,6 @@ namespace Catalogue.Models.Entities
         public virtual DbSet<Image> Images { get; set; }
         public virtual DbSet<LikeDislike> LikesDislikes { get; set; }
         public virtual DbSet<Manufacturer> Manufacturers { get; set; }
-        public virtual DbSet<ProductCategory> ProductCategory { get; set; }
         public virtual DbSet<Product> Products { get; set; }
         public virtual DbSet<ProductTag> ProductsTags { get; set; }
         public virtual DbSet<Rating> Ratings { get; set; }

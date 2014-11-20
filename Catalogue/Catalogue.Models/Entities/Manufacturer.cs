@@ -15,6 +15,8 @@ namespace Catalogue.Models.Entities
         [StringLength(50)]
         public string Name { get; set; }
 
+        [MaxLength(1000)]
+        [DataType(DataType.MultilineText)]
         public string Description { get; set; }
     }
 }

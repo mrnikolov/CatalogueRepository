@@ -85,8 +85,8 @@ namespace Catalogue.Web.Controllers
                     BirthDate = model.BirthDate,
                     FirstName = model.FirstName,
                     Email = model.Email,
-                    Gender = model.Gender,
                     LastName = model.LastName,
+                    Gender = model.Gender,
                 };
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)

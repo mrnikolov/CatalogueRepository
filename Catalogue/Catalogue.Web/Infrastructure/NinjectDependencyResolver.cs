@@ -1,4 +1,5 @@
-﻿using log4net;
+﻿using Catalogue.Models.Entities;
+using log4net;
 using Ninject;
 using System;
 using System.Collections.Generic;
@@ -31,6 +32,8 @@ namespace Catalogue.Web.Infrastructure
         {
             kernel.Bind<ILog>().ToMethod(x => LogManager.GetLogger(typeof(Controller)))
                 .InSingletonScope();
+
+            kernel.Bind<ICatalogueContext>().To<CatalogueContext>();
         }
     }
 }

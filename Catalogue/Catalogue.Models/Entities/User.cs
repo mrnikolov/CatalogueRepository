@@ -14,9 +14,6 @@ namespace Catalogue.Models.Entities
             Wishlists = new HashSet<Wishlist>();
         }
 
-        [Key]
-        public int UserID { get; set; }
-
         [Required]
         [StringLength(30)]
         public string FirstName { get; set; }

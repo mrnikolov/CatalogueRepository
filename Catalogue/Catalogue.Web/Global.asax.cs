@@ -1,16 +1,20 @@
-﻿using System;
+﻿using log4net;
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Optimization;
 using System.Web.Routing;
-using System.Web.Http;
-using System.IO;
-using log4net;
+using System.Web.Security;
+using System.Web.SessionState;
 
 namespace Catalogue.Web
 {
-    public class Global : HttpApplication
+    public class MvcApplication : System.Web.HttpApplication
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(Global));
+        private static readonly ILog log = LogManager.GetLogger(typeof(MvcApplication));
 
         void Application_Error(Object sender, EventArgs e)
         {
@@ -19,11 +23,12 @@ namespace Catalogue.Web
             log.Error("App_Error", ex);
         }
 
-        void Application_Start(object sender, EventArgs e)
+        protected void Application_Start()
         {
             AreaRegistration.RegisterAllAreas();
-            GlobalConfiguration.Configure(WebApiConfig.Register);
+            FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             log4net.Config.XmlConfigurator.Configure(new FileInfo(Server.MapPath("~/Web.config")));
         }

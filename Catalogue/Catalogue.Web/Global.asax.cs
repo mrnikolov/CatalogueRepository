@@ -1,4 +1,5 @@
-﻿using log4net;
+﻿using Catalogue.Web.Infrastructure;
+using log4net;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -14,10 +15,11 @@ namespace Catalogue.Web
 {
     public class MvcApplication : System.Web.HttpApplication
     {
-        private static readonly ILog log = LogManager.GetLogger(typeof(MvcApplication));
+        //private static readonly ILog log = LogManager.GetLogger(typeof(MvcApplication));
 
         void Application_Error(Object sender, EventArgs e)
         {
+            ILog log = LogManager.GetLogger(typeof(MvcApplication));
             Exception ex = Server.GetLastError().GetBaseException();
 
             log.Error("App_Error", ex);

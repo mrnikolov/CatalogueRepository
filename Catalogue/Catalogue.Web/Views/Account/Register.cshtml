@@ -3,14 +3,14 @@
     ViewBag.Title = "Register";
 }
 
-<h2>@ViewBag.Title.</h2>
+<h2>@ViewBag.Title</h2>
 
 @using (Html.BeginForm("Register", "Account", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
 {
     @Html.AntiForgeryToken()
-    <h4>Create a new account.</h4>
+    <h4>Create a new account</h4>
     <hr />
-    @Html.ValidationSummary()
+    @Html.ValidationSummary(true)
     <div class="form-group">
         @Html.LabelFor(m => m.UserName, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
@@ -21,12 +21,14 @@
         @Html.LabelFor(m => m.Password, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
             @Html.PasswordFor(m => m.Password, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Password, "The password field is required.")
         </div>
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.ConfirmPassword, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
             @Html.PasswordFor(m => m.ConfirmPassword, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.ConfirmPassword)
         </div>
     </div>
     <div class="form-group">
@@ -39,6 +41,7 @@
         @Html.LabelFor(m => m.FirstName, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
             @Html.TextBoxFor(m => m.FirstName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.FirstName)
         </div>
     </div>
     <div class="form-group">
@@ -50,13 +53,22 @@
     <div class="form-group">
         @Html.LabelFor(m => m.Gender, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.TextBoxFor(m => m.Gender, new { @class = "form-control" })
+            <div class="editor-field">
+                @Html.RadioButtonFor(m => m.Gender, "Male", new { id = "male" })
+                @Html.Label("Male", new { @for = "male" }) &nbsp;
+                @Html.RadioButtonFor(m => m.Gender, "Female", new { id = "female" })
+                @Html.Label("Female", new { @for = "female" })
+                @Html.ValidationMessageFor(m => m.Gender)
+            </div>
         </div>
     </div>
     <div class="form-group">
         @Html.LabelFor(m => m.BirthDate, new { @class = "col-md-2 control-label" })
         <div class="col-md-10">
-            @Html.TextBoxFor(m => m.BirthDate, new { @class = "form-control" })
+            <div class="form-group input-group-sm">
+                @Html.TextBoxFor(model => model.BirthDate, new { @class = "form-control datepicker", placeholder = "Enter Drop-off date here..." })
+                @Html.ValidationMessageFor(model => model.BirthDate)
+            </div>
         </div>
     </div>
     <div class="form-group">
@@ -68,4 +80,9 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        $(function () { // will trigger when the document is ready
+            $('.datepicker').datepicker(); //Initialise any date pickers
+        });
+    </script>
 }

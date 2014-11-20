@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Catalogue.Models.Entities;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -62,18 +63,26 @@ namespace Catalogue.Web.Models
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 
+        [Required]
+        [MaxLength(30)]
+        [Display(Name = "Email address")]
+        [DataType(DataType.EmailAddress, ErrorMessage = "E-mail is not valid")]
+        [RegularExpression("^[a-zA-Z0-9_\\.-]+@([a-zA-Z0-9-]+\\.)+[a-zA-Z]{2,6}$", ErrorMessage = "E-mail is not valid")]
         public string Email { get; set; }
 
         [Required]
         [StringLength(30)]
+        [Display(Name = "First Name")]
         public string FirstName { get; set; }
 
         [StringLength(30)]
+        [Display(Name = "Last Name")]
         public string LastName { get; set; }
 
         [Column(TypeName = "date")]
         public DateTime? BirthDate { get; set; }
 
-        public short Gender { get; set; }
+        [Required]
+        public Gender Gender { get; set; }
     }
 }

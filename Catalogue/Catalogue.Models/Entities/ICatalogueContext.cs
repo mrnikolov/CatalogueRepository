@@ -9,7 +9,6 @@ namespace Catalogue.Models.Entities
         DbSet<Image> Images { get; set; }
         DbSet<LikeDislike> LikesDislikes { get; set; }
         DbSet<Manufacturer> Manufacturers { get; set; }
-        DbSet<ProductCategory> ProductCategory { get; set; }
         DbSet<Product> Products { get; set; }
         DbSet<ProductTag> ProductsTags { get; set; }
         DbSet<Rating> Ratings { get; set; }

@@ -22,6 +22,20 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
+                    @*@if (User.IsInRole("Admin"))
+                        {*@
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">Administration <b class="caret"></b></a>
+                        <ul class="dropdown-menu">
+                            <li>@Html.ActionLink("Products", "ProductsList", "Admin")</li>
+                            <li>@Html.ActionLink("Add Products", "Save", "AddProduct")</li>
+                            <li>@Html.ActionLink("Add Manufacturer", "Index", "Manufacturer")</li>
+                            <li>@Html.ActionLink("Add Category", "Index", "Category")</li>
+                            <li>@Html.ActionLink("Customers", "CustomersList", "Admin")</li>
+                        </ul>
+                    </li>
+
+                    @*}*@
                 </ul>
                 @Html.Partial("_LoginPartial")
             </div>
@@ -31,7 +45,7 @@
         @RenderBody()
         <hr />
         <footer>
-            <p>&copy; @DateTime.Now.Year - Team Acer</p>
+            <p class="footer">&copy; @DateTime.Now.Year - Team Acer</p>
         </footer>
     </div>
 

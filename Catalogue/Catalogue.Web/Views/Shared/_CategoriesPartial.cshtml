@@ -1,0 +1,10 @@
+﻿@model Product
+
+<div class="form-group">
+    <strong>@Html.Label("Category", new { @class = "control-label col-md-2" })</strong>
+    <div class="col-md-10">
+        @Html.DropDownListFor(x => x.Category.Name, ViewData["categories"] as List<SelectListItem>, "Choose...", new { @class = "form-control" })
+        @Html.ValidationMessageFor(x => x.Category.Name, "Category is required.")
+    </div>
+</div>
+

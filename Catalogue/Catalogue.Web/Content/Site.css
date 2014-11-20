@@ -40,3 +40,11 @@ input[type="checkbox"].input-validation-error {
 .validation-summary-valid {
     display: none;
 }
+
+h1, h2 {
+    text-align: center;
+}
+
+.footer {
+    text-align: center;
+}

@@ -6,6 +6,8 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Catalogue.Models.Entities;
+using Catalogue.Models.Services;
+using Catalogue.Web.Controllers;
 
 namespace Catalogue.Web.Infrastructure
 {
@@ -33,6 +35,8 @@ namespace Catalogue.Web.Infrastructure
             kernel.Bind<ILog>().ToMethod(x => LogManager.GetLogger(typeof(Controller)))
                 .InSingletonScope();
             kernel.Bind(typeof(ICatalogueContext)).To(typeof(CatalogueContext));
+            kernel.Bind(typeof(IProductService)).To(typeof(ProductService));
+            kernel.Bind(typeof(ICatalogueContext)).To(typeof(ProductService));
 
         }
     }

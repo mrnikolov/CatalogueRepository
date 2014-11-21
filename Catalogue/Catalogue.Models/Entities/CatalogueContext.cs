@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNet.Identity.EntityFramework;
 using System.Data.Entity;
 
+
 namespace Catalogue.Models.Entities
 {
     public class CatalogueContext : IdentityDbContext<User>, ICatalogueContext

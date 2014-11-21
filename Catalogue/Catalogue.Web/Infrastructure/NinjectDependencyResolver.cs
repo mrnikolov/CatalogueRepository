@@ -37,6 +37,8 @@ namespace Catalogue.Web.Infrastructure
             kernel.Bind(typeof(ICatalogueContext)).To(typeof(CatalogueContext));
             kernel.Bind(typeof(IProductService)).To(typeof(ProductService));
             kernel.Bind(typeof(ICatalogueContext)).To(typeof(ProductService));
+            kernel.Bind(typeof(IManufacturerService)).To(typeof(ManufacturerService));
+            kernel.Bind(typeof(ICategoryService)).To(typeof(CategoryService));
 
         }
     }

@@ -7,17 +7,24 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Catalogue.Models.Entities;
+using Catalogue.Models.Services;
 
 namespace Catalogue.Web.Controllers
 {
     public class CategoryController : Controller
     {
-        private CatalogueContext db = new CatalogueContext();
+        private ICategoryService categoryService;
+
+        public CategoryController(ICategoryService categoryService)
+        {
+            this.categoryService = categoryService;
+        }
+
 
         // GET: /Category/
         public ActionResult Index()
         {
-            return View(db.Categories.ToList());
+            return View(categoryService.GetAll());
         }
 
         // GET: /Category/Details/5
@@ -27,7 +34,9 @@ namespace Catalogue.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Category category = db.Categories.Find(id);
+
+            var category = categoryService.Find(id);
+
             if (category == null)
             {
                 return HttpNotFound();
@@ -50,8 +59,7 @@ namespace Catalogue.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Categories.Add(category);
-                db.SaveChanges();
+                categoryService.Add(category);
                 return RedirectToAction("Index");
             }
 
@@ -65,7 +73,9 @@ namespace Catalogue.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Category category = db.Categories.Find(id);
+
+            var category = categoryService.Find(id);
+
             if (category == null)
             {
                 return HttpNotFound();
@@ -82,8 +92,7 @@ namespace Catalogue.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(category).State = EntityState.Modified;
-                db.SaveChanges();
+                categoryService.Modify(category);
                 return RedirectToAction("Index");
             }
             return View(category);
@@ -96,7 +105,9 @@ namespace Catalogue.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Category category = db.Categories.Find(id);
+
+            var category = categoryService.Find(id);
+
             if (category == null)
             {
                 return HttpNotFound();
@@ -109,19 +120,19 @@ namespace Catalogue.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Category category = db.Categories.Find(id);
-            db.Categories.Remove(category);
-            db.SaveChanges();
+            var category = categoryService.Find(id);
+            categoryService.Remove(category);
+
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+        //protected override void Dispose(bool disposing)
+        //{
+        //    if (disposing)
+        //    {
+        //        db.Dispose();
+        //    }
+        //    base.Dispose(disposing);
+        //}
     }
 }

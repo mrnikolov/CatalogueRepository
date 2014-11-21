@@ -7,17 +7,23 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using Catalogue.Models.Entities;
+using Catalogue.Models.Services;
 
 namespace Catalogue.Web.Controllers
 {
     public class ManufacturerController : Controller
     {
-        private CatalogueContext db = new CatalogueContext();
+        private IManufacturerService manufacturerService;
+
+        public ManufacturerController(IManufacturerService manufacturerService)
+        {
+            this.manufacturerService = manufacturerService;
+        }
 
         // GET: /Manufacturer/
         public ActionResult Index()
         {
-            return View(db.Manufacturers.ToList());
+            return View(manufacturerService.GetAll());
         }
 
         // GET: /Manufacturer/Details/5
@@ -27,11 +33,14 @@ namespace Catalogue.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Manufacturer manufacturer = db.Manufacturers.Find(id);
+
+            var manufacturer = manufacturerService.Find(id);
+
             if (manufacturer == null)
             {
                 return HttpNotFound();
             }
+
             return View(manufacturer);
         }
 
@@ -50,8 +59,8 @@ namespace Catalogue.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Manufacturers.Add(manufacturer);
-                db.SaveChanges();
+                manufacturerService.Add(manufacturer);
+
                 return RedirectToAction("Index");
             }
 
@@ -65,11 +74,14 @@ namespace Catalogue.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Manufacturer manufacturer = db.Manufacturers.Find(id);
+
+            var manufacturer = manufacturerService.Find(id);
+
             if (manufacturer == null)
             {
                 return HttpNotFound();
             }
+
             return View(manufacturer);
         }
 
@@ -82,10 +94,11 @@ namespace Catalogue.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(manufacturer).State = EntityState.Modified;
-                db.SaveChanges();
+                manufacturerService.Modify(manufacturer);
+
                 return RedirectToAction("Index");
             }
+
             return View(manufacturer);
         }
 
@@ -96,11 +109,14 @@ namespace Catalogue.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Manufacturer manufacturer = db.Manufacturers.Find(id);
+
+            var manufacturer = manufacturerService.Find(id);
+            
             if (manufacturer == null)
             {
                 return HttpNotFound();
             }
+
             return View(manufacturer);
         }
 
@@ -109,19 +125,19 @@ namespace Catalogue.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Manufacturer manufacturer = db.Manufacturers.Find(id);
-            db.Manufacturers.Remove(manufacturer);
-            db.SaveChanges();
+            var manufacturer = manufacturerService.Find(id);
+            manufacturerService.Remove(manufacturer);
+
             return RedirectToAction("Index");
         }
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+        //protected override void Dispose(bool disposing)
+        //{
+        //    if (disposing)
+        //    {
+        //        db.Dispose();
+        //    }
+        //    base.Dispose(disposing);
+        //}
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.Entity;
+
 namespace Catalogue.Models.Entities
 {
     public interface ICatalogueContext

@@ -1,4 +1,5 @@
 ﻿using Catalogue.Models.Entities;
+using Catalogue.Models.Services;
 using Catalogue.Web.Models;
 using System;
 using System.Collections.Generic;
@@ -11,11 +12,13 @@ namespace Catalogue.Web.Controllers
 {
     public class AddProductController : Controller
     {
-        private CatalogueContext db;
+        private IManufacturerService manufacturerService;
+        private ICategoryService categoryService;
 
-        public AddProductController(CatalogueContext db)
+        public AddProductController(IManufacturerService manufacturerService, ICategoryService categoryService)
         {
-            this.db = db;
+            this.manufacturerService = manufacturerService;
+            this.categoryService = categoryService;
         }
 
         [HttpGet]
@@ -39,7 +42,7 @@ namespace Catalogue.Web.Controllers
         {
             List<SelectListItem> manufacturersList = new List<SelectListItem>();
 
-            var manufacturers = db.Manufacturers.ToList();
+            var manufacturers = manufacturerService.GetAll();
 
             foreach (var item in manufacturers)
             {
@@ -55,7 +58,7 @@ namespace Catalogue.Web.Controllers
         {
             List<SelectListItem> categoriesList = new List<SelectListItem>();
 
-            var categories = db.Categories.ToList();
+            var categories = categoryService.GetAll();
 
             foreach (var item in categories)
             {

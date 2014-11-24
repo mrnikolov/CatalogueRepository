@@ -1,15 +1,15 @@
-﻿@model IEnumerable<Catalogue.Models.Entities.Manufacturer>
+﻿@model IEnumerable<Manufacturer>
 
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Manufacturer";
 }
 
-<h2>Index</h2>
+<h2>Manufacturer</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })
 </p>
-<table class="table" id="manufacturers">
+<table class="table" id="table_id">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Name)
@@ -45,7 +45,7 @@
     <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.0/js/jquery.dataTables.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
-            $('#manufacturers').dataTable();
+            $('#table_id').dataTable();
         });
     </script>
 }

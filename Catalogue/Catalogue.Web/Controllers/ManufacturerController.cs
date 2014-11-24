@@ -42,7 +42,13 @@ namespace Catalogue.Web.Controllers
                 return HttpNotFound();
             }
 
-            return View(manufacturer);
+            var model = new ManufacturerViewModel()
+            {
+                 Name = manufacturer.Name,
+                  Description = manufacturer.Description
+            };
+
+            return View(model);
         }
 
         // GET: /Manufacturer/Create
@@ -88,7 +94,13 @@ namespace Catalogue.Web.Controllers
                 return HttpNotFound();
             }
 
-            return View(manufacturer);
+            var model = new ManufacturerViewModel()
+            {
+                Name = manufacturer.Name,
+                Description = manufacturer.Description
+            };
+
+            return View(model);
         }
 
         // POST: /Manufacturer/Edit/5
@@ -127,7 +139,13 @@ namespace Catalogue.Web.Controllers
                 return HttpNotFound();
             }
 
-            return View(manufacturer);
+            var model = new ManufacturerViewModel()
+            {
+                Name = manufacturer.Name,
+                Description = manufacturer.Description
+            };
+
+            return View(model);
         }
 
         // POST: /Manufacturer/Delete/5

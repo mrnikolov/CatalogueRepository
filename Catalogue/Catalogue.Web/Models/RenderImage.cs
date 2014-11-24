@@ -14,7 +14,7 @@ namespace Catalogue.Web.Models
         private const int ImgMaxWidth = 125;
         private const int ImgMaxHeight = 125;
 
-        public void RenderFile(Image fileImage, HttpPostedFileBase file)
+        public void RenderImg(Image fileImage, HttpPostedFileBase file)
         {
             fileImage.ImageName = file.FileName;
             fileImage.Value = ConverToBytes(file);
@@ -38,7 +38,7 @@ namespace Catalogue.Web.Models
             return resizedFile;
         }
 
-        private byte[] ConverToBytes(HttpPostedFileBase image)
+        public byte[] ConverToBytes(HttpPostedFileBase image)
         {
             byte[] imageBytes = null;
             using (System.IO.BinaryReader reader = new System.IO.BinaryReader(image.InputStream))

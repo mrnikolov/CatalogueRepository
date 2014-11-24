@@ -9,7 +9,7 @@
 <p>
     @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })
 </p>
-<table class="table">
+<table class="table" id="manufacturers">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Name)
@@ -20,20 +20,32 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Name)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Description)
-        </td>
-        <td>
-            @Html.ActionLink("Edit", "Edit", new { id=item.ManufacturerID }) |
-            @Html.ActionLink("Details", "Details", new { id=item.ManufacturerID }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.ManufacturerID })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Description)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.ManufacturerID }) |
+                @Html.ActionLink("Details", "Details", new { id = item.ManufacturerID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.ManufacturerID })
+            </td>
+        </tr>
+    }
 
 </table>
+
+@section scripts
+{
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/1.10.0/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="//cdn.datatables.net/1.10.0/js/jquery.dataTables.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#manufacturers').dataTable();
+        });
+    </script>
+}

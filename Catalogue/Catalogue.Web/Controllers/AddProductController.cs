@@ -14,6 +14,12 @@ namespace Catalogue.Web.Controllers
     {
         private IManufacturerService manufacturerService;
         private ICategoryService categoryService;
+        private CatalogueContext db;
+
+        public AddProductController(CatalogueContext db)
+        {
+            this.db = db;
+        }
 
         public AddProductController(IManufacturerService manufacturerService, ICategoryService categoryService)
         {
@@ -26,16 +32,80 @@ namespace Catalogue.Web.Controllers
         {
             return View();
         }
-
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Save(Image file, HttpPostedFileBase postedFile, Product product)
+        [AcceptVerbs(HttpVerbs.Post)]
+        public ActionResult Save(ProductViewModel model, Image img)
         {
             if (ModelState.IsValid)
             {
+                RenderImage service = new RenderImage();
+                service.RenderImg(img, model.postedFile);
+                var rndrResizedImage = service.ResizeFile(img);
+
+                var images = new List<Image>();
+                images.Add(rndrResizedImage);
+
+                var product = new Product()
+                {
+                    Category = model.Category,
+                    CategoryID = model.CategoryID,
+                    Description = model.Description,
+                    Manufacturers = model.Manufacturers,
+                    Name = model.Name,
+                    ProductYear = model.ProductYear,
+                    Images = images
+                };
+
+                db.Products.Add(product);
+                db.SaveChanges();
             }
 
             return View();
+        }
+
+        public ActionResult SaveUploadedFile()
+        {
+            bool isSavedSuccessfully = true;
+            string fName = "";
+            try
+            {
+                foreach (string fileName in Request.Files)
+                {
+                    HttpPostedFileBase file = Request.Files[fileName];
+                    //Save file content goes here
+                    fName = file.FileName;
+                    if (file != null && file.ContentLength > 0)
+                    {
+                        RenderImage services = new RenderImage();
+                        var imgBytes = services.ConverToBytes(file);
+                        var image = new Image()
+                        {
+                            ProductID = 1,
+                            ImageName = fName,
+                            Value = imgBytes
+                        };
+                        db.Images.Add(image);
+                        db.SaveChanges();
+                    }
+
+                }
+
+            }
+            catch (Exception)
+            {
+                isSavedSuccessfully = false;
+            }
+
+
+            if (isSavedSuccessfully)
+            {
+                return Json(new { Message = fName });
+            }
+            else
+            {
+                return Json(new { Message = "Error in saving file" });
+            }
         }
 
         public ActionResult LoadManufacturers()

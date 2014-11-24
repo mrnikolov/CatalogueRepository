@@ -203,6 +203,9 @@
     </Compile>
     <Compile Include="Infrastructure\NinjectDependencyResolver.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\CategoryViewModel.cs" />
+    <Compile Include="Models\ManufacturerViewModel.cs" />
+    <Compile Include="Models\ProductViewModel.cs" />
     <Compile Include="Models\RenderImage.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />

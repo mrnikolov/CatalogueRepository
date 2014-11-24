@@ -8,12 +8,14 @@ using System.Web;
 using System.Web.Mvc;
 using Catalogue.Models.Entities;
 using Catalogue.Models.Services;
+using Catalogue.Web.Models;
 
 namespace Catalogue.Web.Controllers
 {
     public class CategoryController : Controller
     {
         private ICategoryService categoryService;
+        const int PageSize = 5;
 
         public CategoryController(ICategoryService categoryService)
         {
@@ -22,9 +24,16 @@ namespace Catalogue.Web.Controllers
 
 
         // GET: /Category/
-        public ActionResult Index()
+        public ActionResult Index(int? id)
         {
-            return View(categoryService.GetAll());
+            int pageNumber = id.GetValueOrDefault(1);
+
+            var categories = categoryService.GetAll();
+            var viewModel = categories.OrderBy(x => x.CategoryID).Skip((pageNumber - 1) * PageSize).Take(PageSize);
+            
+            ViewBag.Pages = Math.Ceiling((double)categories.Count() / PageSize);
+            ViewBag.Id = id;
+            return View(viewModel);
         }
 
         // GET: /Category/Details/5
@@ -34,14 +43,18 @@ namespace Catalogue.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-            var category = categoryService.Find(id);
-
+            Category category = categoryService.Find(id);
             if (category == null)
             {
                 return HttpNotFound();
             }
-            return View(category);
+
+            var model = new CategoryViewModel()
+            {
+                Name = category.Name
+            };
+
+            return View(model);
         }
 
         // GET: /Category/Create
@@ -51,19 +64,24 @@ namespace Catalogue.Web.Controllers
         }
 
         // POST: /Category/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="CategoryID,Name,ParentCategoryID")] Category category)
+        public ActionResult Create(CategoryViewModel model)
         {
             if (ModelState.IsValid)
             {
+                var category = new Category()
+                {
+                    CategoryID = model.CategoryID,
+                    Name = model.Name
+                };
+
                 categoryService.Add(category);
+
                 return RedirectToAction("Index");
             }
 
-            return View(category);
+            return View(model);
         }
 
         // GET: /Category/Edit/5
@@ -73,14 +91,18 @@ namespace Catalogue.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-            var category = categoryService.Find(id);
-
+            Category category = categoryService.Find(id);
             if (category == null)
             {
                 return HttpNotFound();
             }
-            return View(category);
+
+            var model = new CategoryViewModel()
+            {
+                CategoryID = category.CategoryID,
+                Name = category.Name
+            };
+            return View(model);
         }
 
         // POST: /Category/Edit/5
@@ -88,14 +110,21 @@ namespace Catalogue.Web.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="CategoryID,Name,ParentCategoryID")] Category category)
+        public ActionResult Edit(CategoryViewModel model)
         {
             if (ModelState.IsValid)
             {
+                var category = new Category()
+                {
+                    CategoryID = model.CategoryID,
+                    Name = model.Name
+                };
+
                 categoryService.Modify(category);
+
                 return RedirectToAction("Index");
             }
-            return View(category);
+            return View(model);
         }
 
         // GET: /Category/Delete/5
@@ -105,14 +134,19 @@ namespace Catalogue.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-
-            var category = categoryService.Find(id);
+            Category category = categoryService.Find(id);
 
             if (category == null)
             {
                 return HttpNotFound();
             }
-            return View(category);
+
+            var model = new CategoryViewModel()
+            {
+                CategoryID = category.CategoryID,
+                Name = category.Name
+            };
+            return View(model);
         }
 
         // POST: /Category/Delete/5
@@ -120,19 +154,11 @@ namespace Catalogue.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            var category = categoryService.Find(id);
+            Category category = categoryService.Find(id);
+
             categoryService.Remove(category);
 
             return RedirectToAction("Index");
         }
-
-        //protected override void Dispose(bool disposing)
-        //{
-        //    if (disposing)
-        //    {
-        //        db.Dispose();
-        //    }
-        //    base.Dispose(disposing);
-        //}
     }
 }

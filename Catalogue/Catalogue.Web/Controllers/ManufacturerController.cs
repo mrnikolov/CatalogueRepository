@@ -8,6 +8,7 @@ using System.Web;
 using System.Web.Mvc;
 using Catalogue.Models.Entities;
 using Catalogue.Models.Services;
+using Catalogue.Web.Models;
 
 namespace Catalogue.Web.Controllers
 {
@@ -51,20 +52,25 @@ namespace Catalogue.Web.Controllers
         }
 
         // POST: /Manufacturer/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="ManufacturerID,Name,Description")] Manufacturer manufacturer)
+        public ActionResult Create(ManufacturerViewModel model)
         {
             if (ModelState.IsValid)
             {
+                var manufacturer = new Manufacturer()
+                {
+                    ManufacturerID = model.ManufacturerID,
+                    Name = model.Name,
+                    Description = model.Description
+                };
+
                 manufacturerService.Add(manufacturer);
 
                 return RedirectToAction("Index");
             }
 
-            return View(manufacturer);
+            return View(model);
         }
 
         // GET: /Manufacturer/Edit/5
@@ -86,20 +92,24 @@ namespace Catalogue.Web.Controllers
         }
 
         // POST: /Manufacturer/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="ManufacturerID,Name,Description")] Manufacturer manufacturer)
+        public ActionResult Edit(ManufacturerViewModel model)
         {
             if (ModelState.IsValid)
             {
+                var manufacturer = new Manufacturer()
+                {
+                    ManufacturerID = model.ManufacturerID,
+                    Name = model.Name,
+                    Description = model.Description
+                };
+
                 manufacturerService.Modify(manufacturer);
 
                 return RedirectToAction("Index");
             }
-
-            return View(manufacturer);
+            return View(model);
         }
 
         // GET: /Manufacturer/Delete/5
@@ -111,7 +121,7 @@ namespace Catalogue.Web.Controllers
             }
 
             var manufacturer = manufacturerService.Find(id);
-            
+
             if (manufacturer == null)
             {
                 return HttpNotFound();
@@ -130,14 +140,5 @@ namespace Catalogue.Web.Controllers
 
             return RedirectToAction("Index");
         }
-
-        //protected override void Dispose(bool disposing)
-        //{
-        //    if (disposing)
-        //    {
-        //        db.Dispose();
-        //    }
-        //    base.Dispose(disposing);
-        //}
     }
 }

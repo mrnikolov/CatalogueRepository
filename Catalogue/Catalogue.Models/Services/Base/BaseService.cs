@@ -7,12 +7,13 @@ using System.Threading.Tasks;
 
 namespace Catalogue.Models.Services
 {
-    class ServiceProducts : ICatalogueContext, IServiceProducts
+    public class BaseService
     {
+        protected ICatalogueContext Context { get; private set; }
 
-        public void Add(Product product)
+        public BaseService(ICatalogueContext context)
         {
-            throw new NotImplementedException();
+            Context = context;
         }
     }
 }

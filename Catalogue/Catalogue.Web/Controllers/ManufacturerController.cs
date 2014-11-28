@@ -14,50 +14,32 @@ namespace Catalogue.Web.Controllers
 {
     public class ManufacturerController : Controller
     {
-        private IManufacturerService manufacturerService;
+        private IManufacturerService manufacturerServices;
 
-        public ManufacturerController(IManufacturerService manufacturerService)
+        public ManufacturerController(IManufacturerService manufacturerServices)
         {
-            this.manufacturerService = manufacturerService;
+            this.manufacturerServices = manufacturerServices;
         }
 
-        // GET: /Manufacturer/
-        public ActionResult Index()
+        public ActionResult Index(int? page)
         {
-            return View(manufacturerService.GetAll());
-        }
+            var pageItems = manufacturerServices.GetItems(page);
 
-        // GET: /Manufacturer/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
+            var manufacturerListViewModel = new ManufacturerListViewModel()
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-
-            var manufacturer = manufacturerService.Find(id);
-
-            if (manufacturer == null)
-            {
-                return HttpNotFound();
-            }
-
-            var model = new ManufacturerViewModel()
-            {
-                 Name = manufacturer.Name,
-                  Description = manufacturer.Description
+                Manufacturers = pageItems.Items.ToList(),
+                Count = pageItems.PageCount,
+                Page = pageItems.CurrentPage
             };
 
-            return View(model);
+            return View(manufacturerListViewModel);
         }
 
-        // GET: /Manufacturer/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: /Manufacturer/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(ManufacturerViewModel model)
@@ -71,7 +53,7 @@ namespace Catalogue.Web.Controllers
                     Description = model.Description
                 };
 
-                manufacturerService.Add(manufacturer);
+                manufacturerServices.Add(manufacturer);
 
                 return RedirectToAction("Index");
             }
@@ -79,7 +61,22 @@ namespace Catalogue.Web.Controllers
             return View(model);
         }
 
-        // GET: /Manufacturer/Edit/5
+        public ActionResult LoadManufacturers()
+        {
+            List<SelectListItem> manufacturersList = new List<SelectListItem>();
+
+            var manufacturers = manufacturerServices.GetAll();
+
+            foreach (var item in manufacturers)
+            {
+                manufacturersList.Add(new SelectListItem { Text = item.Name, Value = item.ManufacturerID.ToString() });
+            }
+
+            ViewData["manufacturers"] = manufacturersList;
+
+            return PartialView("_ManufacturersPartial");
+        }
+
         public ActionResult Edit(int? id)
         {
             if (id == null)
@@ -87,7 +84,7 @@ namespace Catalogue.Web.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var manufacturer = manufacturerService.Find(id);
+            var manufacturer = manufacturerServices.Find(id);
 
             if (manufacturer == null)
             {
@@ -96,6 +93,7 @@ namespace Catalogue.Web.Controllers
 
             var model = new ManufacturerViewModel()
             {
+                ManufacturerID = manufacturer.ManufacturerID,
                 Name = manufacturer.Name,
                 Description = manufacturer.Description
             };
@@ -103,7 +101,6 @@ namespace Catalogue.Web.Controllers
             return View(model);
         }
 
-        // POST: /Manufacturer/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(ManufacturerViewModel model)
@@ -117,14 +114,13 @@ namespace Catalogue.Web.Controllers
                     Description = model.Description
                 };
 
-                manufacturerService.Modify(manufacturer);
+                manufacturerServices.Modify(manufacturer);
 
                 return RedirectToAction("Index");
             }
             return View(model);
         }
 
-        // GET: /Manufacturer/Delete/5
         public ActionResult Delete(int? id)
         {
             if (id == null)
@@ -132,7 +128,7 @@ namespace Catalogue.Web.Controllers
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
 
-            var manufacturer = manufacturerService.Find(id);
+            var manufacturer = manufacturerServices.Find(id);
 
             if (manufacturer == null)
             {
@@ -148,13 +144,12 @@ namespace Catalogue.Web.Controllers
             return View(model);
         }
 
-        // POST: /Manufacturer/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            var manufacturer = manufacturerService.Find(id);
-            manufacturerService.Remove(manufacturer);
+            var manufacturer = manufacturerServices.Find(id);
+            manufacturerServices.Remove(manufacturer);
 
             return RedirectToAction("Index");
         }

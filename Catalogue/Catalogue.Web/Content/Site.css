@@ -48,3 +48,7 @@ h1, h2 {
 .footer {
     text-align: center;
 }
+
+.form-control {
+    height: 100%;
+}

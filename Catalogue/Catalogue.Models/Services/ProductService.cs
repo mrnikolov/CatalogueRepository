@@ -1,49 +1,68 @@
 ﻿using Catalogue.Models.Entities;
+using Catalogue.Models.Infrastructure;
 using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Catalogue.Models.Services
 {
-    public class ProductService : IProductService
+    public class ProductService : BaseService, IProductService
     {
-        private CatalogueContext context;
+        private const int pageSize = 3;
 
-        public ProductService()
+        public ProductService(ICatalogueContext context)
+            : base(context)
         {
-            context = new CatalogueContext();
+        }
+
+        public IEnumerable<Product> GetAll()
+        {
+            return this.Context.Products.ToList();
+        }
+
+        public Product Find(int? id)
+        {
+            return this.Context.Products.Find(id);
         }
 
         public void Add(Product product)
         {
-            if (product == null)
-            {
-                throw new NullReferenceException("Only non-nullable objects allowed!");
-            }
-
-            context.Products.Add(product);
+            this.Context.Products.Add(product);
+            this.Context.SaveChanges();
         }
 
-        public void Get(Product product)
+        public void Add(Image image)
         {
-            throw new NotImplementedException();
+            this.Context.Images.Add(image);
+            this.Context.SaveChanges();
         }
 
-        public Product GetAt(int index)
+        public void Modify(Product product)
         {
-            return context.Products.ElementAt(index);
+            this.Context.Entry(product).State = EntityState.Modified;
+            this.Context.SaveChanges();
         }
 
         public void Remove(Product product)
         {
-            throw new NotImplementedException();
+            this.Context.Products.Remove(product);
+            this.Context.SaveChanges();
         }
 
-        public void RemoveAt(int index)
+        public void Remove(int id)
         {
-            throw new NotImplementedException();
+            var product = this.Find(id);
+            this.Context.Products.Remove(product);
+            this.Context.SaveChanges();
+        }
+
+        public PagedList<Product> GetItems(int? page)
+        {
+            var pagedList = new PagedList<Product>(this.Context.Products.OrderBy(c => c.Name), page, pageSize);
+            return pagedList;
         }
     }
 }

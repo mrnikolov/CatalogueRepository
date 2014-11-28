@@ -8,6 +8,8 @@ using System.Web.Mvc;
 using Catalogue.Models.Entities;
 using Catalogue.Models.Services;
 using Catalogue.Web.Controllers;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Catalogue.Web.Infrastructure
 {
@@ -32,14 +34,11 @@ namespace Catalogue.Web.Infrastructure
 
         private void AddBindings()
         {
-            kernel.Bind<ILog>().ToMethod(x => LogManager.GetLogger(typeof(Controller)))
-                .InSingletonScope();
-            kernel.Bind(typeof(ICatalogueContext)).To(typeof(CatalogueContext));
-            kernel.Bind(typeof(IProductService)).To(typeof(ProductService));
-            kernel.Bind(typeof(ICatalogueContext)).To(typeof(ProductService));
-            kernel.Bind(typeof(IManufacturerService)).To(typeof(ManufacturerService));
-            kernel.Bind(typeof(ICategoryService)).To(typeof(CategoryService));
-
+            kernel.Bind<ILog>().ToMethod(x => LogManager.GetLogger("CatalogueLogger"));
+            kernel.Bind<ICatalogueContext>().To<CatalogueContext>();
+            kernel.Bind<IProductService>().To<ProductService>();
+            kernel.Bind<IManufacturerService>().To<ManufacturerService>();
+            kernel.Bind<ICategoryService>().To<CategoryService>();
         }
     }
 }

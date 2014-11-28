@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Data.Entity;
+using System.Data.Entity.Infrastructure;
 
 namespace Catalogue.Models.Entities
 {
@@ -15,5 +16,7 @@ namespace Catalogue.Models.Entities
         DbSet<Rating> Ratings { get; set; }
         DbSet<Tag> Tags { get; set; }
         DbSet<Wishlist> Wishlists { get; set; }
+        DbEntityEntry Entry(object entity);
+        int SaveChanges();
     }
 }

@@ -14,56 +14,32 @@ namespace Catalogue.Web.Controllers
 {
     public class CategoryController : Controller
     {
-        private ICategoryService categoryService;
-        const int PageSize = 5;
+        private ICategoryService categoryServices;
 
-        public CategoryController(ICategoryService categoryService)
+        public CategoryController(ICategoryService categoryServices)
         {
-            this.categoryService = categoryService;
+            this.categoryServices = categoryServices;
         }
 
-
-        // GET: /Category/
-        public ActionResult Index(int? id)
+        public ActionResult Index(int? page)
         {
-            int pageNumber = id.GetValueOrDefault(1);
+            var pageItems = categoryServices.GetItems(page);
 
-            var categories = categoryService.GetAll();
-            var viewModel = categories.OrderBy(x => x.CategoryID).Skip((pageNumber - 1) * PageSize).Take(PageSize);
-            
-            ViewBag.Pages = Math.Ceiling((double)categories.Count() / PageSize);
-            ViewBag.Id = id;
-            return View(viewModel);
-        }
-
-        // GET: /Category/Details/5
-        public ActionResult Details(int? id)
-        {
-            if (id == null)
+            var categoryListViewModel = new CategoryListViewModel()
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Category category = categoryService.Find(id);
-            if (category == null)
-            {
-                return HttpNotFound();
-            }
-
-            var model = new CategoryViewModel()
-            {
-                Name = category.Name
+                Categories = pageItems.Items.ToList(),
+                Count = pageItems.PageCount,
+                Page = pageItems.CurrentPage
             };
 
-            return View(model);
+            return View(categoryListViewModel);
         }
 
-        // GET: /Category/Create
         public ActionResult Create()
         {
             return View();
         }
 
-        // POST: /Category/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create(CategoryViewModel model)
@@ -76,7 +52,7 @@ namespace Catalogue.Web.Controllers
                     Name = model.Name
                 };
 
-                categoryService.Add(category);
+                categoryServices.Add(category);
 
                 return RedirectToAction("Index");
             }
@@ -84,14 +60,29 @@ namespace Catalogue.Web.Controllers
             return View(model);
         }
 
-        // GET: /Category/Edit/5
+        public ActionResult LoadCategories()
+        {
+            List<SelectListItem> categoriesList = new List<SelectListItem>();
+
+            var categories = categoryServices.GetAll();
+
+            foreach (var item in categories)
+            {
+                categoriesList.Add(new SelectListItem { Text = item.Name, Value = item.CategoryID.ToString() });
+            }
+
+            ViewData["categories"] = categoriesList;
+
+            return PartialView("_CategoriesPartial");
+        }
+
         public ActionResult Edit(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Category category = categoryService.Find(id);
+            Category category = categoryServices.Find(id);
             if (category == null)
             {
                 return HttpNotFound();
@@ -105,9 +96,6 @@ namespace Catalogue.Web.Controllers
             return View(model);
         }
 
-        // POST: /Category/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(CategoryViewModel model)
@@ -120,7 +108,7 @@ namespace Catalogue.Web.Controllers
                     Name = model.Name
                 };
 
-                categoryService.Modify(category);
+                categoryServices.Modify(category);
 
                 return RedirectToAction("Index");
             }
@@ -134,7 +122,7 @@ namespace Catalogue.Web.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Category category = categoryService.Find(id);
+            Category category = categoryServices.Find(id);
 
             if (category == null)
             {
@@ -154,9 +142,9 @@ namespace Catalogue.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Category category = categoryService.Find(id);
+            Category category = categoryServices.Find(id);
 
-            categoryService.Remove(category);
+            categoryServices.Remove(category);
 
             return RedirectToAction("Index");
         }

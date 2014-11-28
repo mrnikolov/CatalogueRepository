@@ -6,44 +6,59 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Catalogue.Models.Infrastructure;
+using System.Configuration;
 
 namespace Catalogue.Models.Services
 {
-    public class ManufacturerService: IManufacturerService
+    public class ManufacturerService : BaseService, IManufacturerService
     {
-        private CatalogueContext context;
+        private readonly int pageSize = 5;
 
-        public ManufacturerService(CatalogueContext context)
+        public ManufacturerService(ICatalogueContext context)
+            : base(context)
         {
-            this.context = context;
         }
 
         public IEnumerable<Manufacturer> GetAll()
         {
-            return context.Manufacturers.ToList();
+            return this.Context.Manufacturers.ToList();
         }
 
         public Manufacturer Find(int? id)
         {
-            return context.Manufacturers.Find(id);
+            return this.Context.Manufacturers.Find(id);
         }
 
         public void Add(Manufacturer manufacturer)
         {
-            context.Manufacturers.Add(manufacturer);
-            context.SaveChanges();
+            this.Context.Manufacturers.Add(manufacturer);
+            this.Context.SaveChanges();
         }
 
         public void Modify(Manufacturer manufacturer)
         {
-            context.Entry(manufacturer).State = EntityState.Modified;
-            context.SaveChanges();
+            this.Context.Entry(manufacturer).State = EntityState.Modified;
+            this.Context.SaveChanges();
         }
 
         public void Remove(Manufacturer manufacturer)
         {
-            context.Manufacturers.Remove(manufacturer);
-            context.SaveChanges();
+            this.Context.Manufacturers.Remove(manufacturer);
+            this.Context.SaveChanges();
+        }
+
+        public void Remove(int id)
+        {
+            var manufacturer = this.Find(id);
+            this.Context.Manufacturers.Remove(manufacturer);
+            this.Context.SaveChanges();
+        }
+
+        public PagedList<Manufacturer> GetItems(int? page)
+        {
+            var pagedList = new PagedList<Manufacturer>(this.Context.Manufacturers.OrderBy(c => c.Name), page, pageSize);
+            return pagedList;
         }
     }
 }

@@ -28,11 +28,11 @@ namespace Catalogue.Models.Entities
         public int ManufacturerID { get; set; }
 
         public int CategoryID { get; set; }
-        public Category Category { get; set; }
 
-        [DataType(DataType.Date)]
+        public virtual Category Category { get; set; }
+
         [DisplayName("Year of product")]
-        public DateTime ProductYear { get; set; }
+        public int ProductYear { get; set; }
 
         [Required]
         [MaxLength(1000)]

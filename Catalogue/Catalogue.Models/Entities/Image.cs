@@ -11,10 +11,8 @@ namespace Catalogue.Models.Entities
         [Key]
         public int ImageID { get; set; }
 
-        [Required]
         public byte[] Value { get; set; }
 
-        [Required]
         [StringLength(100)]
         public string ImageName { get; set; }
 

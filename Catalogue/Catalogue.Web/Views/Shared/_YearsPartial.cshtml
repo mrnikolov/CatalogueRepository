@@ -1,0 +1,10 @@
+﻿@model IEnumerable<int>
+
+<div class="row form-group">
+    @Html.Label("Year of production", new { @class = "col-md-2 control-label" })
+    <div class="col-md-10">
+        <div class="editor-field">
+            @Html.DropDownList("ProductYear", new SelectList(@Model))
+        </div>
+    </div>
+</div>

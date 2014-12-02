@@ -6,38 +6,45 @@
 
 <h2>Manufacturers</h2>
 
-<p>
+<div class="col-md-offset-2">
     @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.Description)
-        </th>
-    </tr>
+</div><br />
 
-    @foreach (var item in @Model.Manufacturers)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Description)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.ManufacturerID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.ManufacturerID })
-            </td>
+<table class="table table-striped table-hover">
+    <thead>
+        <tr class="info lead">
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Description)
+            </th>
+            <th>Edit</th>
+            <th>Delete</th>
         </tr>
-    }
-
+    </thead>
+    <tbody>
+        @foreach (var item in @Model.Manufacturers)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Description)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.ManufacturerID })
+                </td>
+                <td>
+                    @Html.ActionLink("Delete", "Delete", new { id = item.ManufacturerID })
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>
 
-<div class="row">
+<div class="row col-md-offset-5">
     <nav>
         <ul class="pagination">
             @for (int i = 1; i <= @Model.Count; i++)

@@ -19,11 +19,18 @@ namespace Catalogue.Web.Controllers
             this.productServices = productServices;
         }
 
-        public ActionResult ProductsList()
+        public ActionResult ProductsList(int? page)
         {
-            var products = productServices.GetAll();
+            var pageItems = productServices.GetItems(page);
 
-            return View(products);
+            var productListViewModels = new ProductListViewModels()
+            {
+                Products = pageItems.Items.ToList(),
+                Count = pageItems.PageCount,
+                Page = pageItems.CurrentPage
+            };
+
+            return View(productListViewModels);
         }
 
         [HttpGet]
@@ -43,14 +50,14 @@ namespace Catalogue.Web.Controllers
 
                 foreach (var item in model.Files)
                 {
-                    if(item != null)
+                    if (item != null)
                     {
                         RenderImage service = new RenderImage();
                         service.RenderImg(img, item);
                         var rndrResizedImage = service.ResizeFile(img);
                         images.Add(rndrResizedImage);
                     }
-              
+
                 }
 
                 var product = new Product()
@@ -65,6 +72,7 @@ namespace Catalogue.Web.Controllers
                 };
 
                 productServices.Add(product);
+                return RedirectToAction("ProductsList");
             }
             return View();
         }

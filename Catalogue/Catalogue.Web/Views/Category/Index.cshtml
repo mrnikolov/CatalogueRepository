@@ -6,35 +6,43 @@
 
 <h2>Category</h2>
 
-<p>
+<div class="row col-md-offset-2">
     @Html.ActionLink("Create New", "Create", null, new { @class = "btn btn-primary" })
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.Name)
-        </th>
-    </tr>
+</div><br />
 
-    @foreach (var item in @Model.Categories)
-    {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.ParentCategoryID)
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.CategoryID }) |
-                @Html.ActionLink("Delete", "Delete", new { id = item.CategoryID })
-            </td>
+<table class="table table-striped table-hover">
+    <thead>
+        <tr class="info lead">
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                Edit
+            </th>
+            <th>
+                Delete
+            </th>
         </tr>
-    }
-
+    </thead>
+    <tbody>
+        @foreach (var item in @Model.Categories)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.CategoryID })
+                </td>
+                <td>
+                    @Html.ActionLink("Delete", "Delete", new { id = item.CategoryID })
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>
 
-<div class="row">
+<div class="row col-md-offset-5">
     <nav>
         <ul class="pagination">
             @for (int i = 1; i <= @Model.Count; i++)

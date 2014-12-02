@@ -207,6 +207,7 @@
     <Compile Include="Models\CategoryViewModel.cs" />
     <Compile Include="Models\ManufacturerListViewModel.cs" />
     <Compile Include="Models\ManufacturerViewModel.cs" />
+    <Compile Include="Models\ProductListViewModels.cs" />
     <Compile Include="Models\ProductViewModel.cs" />
     <Compile Include="Models\RenderImage.cs" />
     <Compile Include="Models\UsersListViewModels.cs" />
@@ -351,6 +352,7 @@
     <Content Include="Views\Shared\_YearsPartial.cshtml" />
     <Content Include="Views\Admin\Users.cshtml" />
     <Content Include="Views\Shared\_IsInRolePartial.cshtml" />
+    <Content Include="Views\Shared\_PaginationPartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

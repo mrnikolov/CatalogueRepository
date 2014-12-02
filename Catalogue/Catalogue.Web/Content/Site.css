@@ -52,3 +52,7 @@ h1, h2, h3 {
 .form-control {
     height: 100%;
 }
+
+.required {
+    color: red;
+}

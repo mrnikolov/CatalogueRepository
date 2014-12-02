@@ -15,7 +15,7 @@
             <hr />
             @Html.ValidationSummary(true)
 
-            <div class="row form-group">
+            <div class="form-group">
                 <strong>@Html.LabelFor(model => model.Name, new { @class = "control-label col-md-2" })</strong>
                 <div class="col-md-10">
                     @Html.TextBoxFor(model => model.Name, null, new { @class = "form-control" })
@@ -26,7 +26,7 @@
             @Html.Action("LoadCategories", "Category")
             @Html.Action("LoadManufacturers", "Manufacturer")
 
-            <div class="row form-group">
+            <div class="form-group">
                 @Html.Label("Select picture", new { @class = "col-md-2 control-label" })
                 <div class="col-md-10">
                     <div class="form-field">
@@ -42,7 +42,7 @@
 
             @Html.Action("GetYears", "Product")
 
-            <div class="row form-group">
+            <div class="form-group">
                 @Html.LabelFor(model => model.Description, new { @class = "control-label col-md-2" })
                 <div class="col-md-10">
                     @Html.EditorFor(model => model.Description)
@@ -50,7 +50,7 @@
                 </div>
             </div>
 
-            <div class="row form-group">
+            <div class="form-group">
                 <div class="col-md-offset-2 col-md-10">
                     <button class="btn btn-success" type="submit" id="upload">Save</button>
                     @Html.ActionLink("Cancel", "ProductList", "Admin", null, new { @class = "btn btn-default" })

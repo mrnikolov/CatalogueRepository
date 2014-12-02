@@ -209,6 +209,8 @@
     <Compile Include="Models\ManufacturerViewModel.cs" />
     <Compile Include="Models\ProductViewModel.cs" />
     <Compile Include="Models\RenderImage.cs" />
+    <Compile Include="Models\UsersListViewModels.cs" />
+    <Compile Include="Models\UserViewModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -225,6 +227,8 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="fonts\glyphicons_016_bin.png" />
     <Content Include="fonts\glyphicons_030_pencil.png" />
+    <Content Include="fonts\glyphicons_192_circle_remove.png" />
+    <Content Include="fonts\glyphicons_193_circle_ok.png" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.woff" />
@@ -330,10 +334,9 @@
     <Content Include="Views\Account\Manage.cshtml" />
     <Content Include="Views\Account\Register.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
-    <Content Include="Views\Admin\CustomersList.cshtml" />
-    <Content Include="Views\Admin\CustomerEdit.cshtml" />
-    <Content Include="Views\Admin\CustomerDelete.cshtml" />
-    <Content Include="Views\Admin\ProductsList.cshtml" />
+    <Content Include="Views\Admin\EditUser.cshtml" />
+    <Content Include="Views\Admin\DeleteUser.cshtml" />
+    <Content Include="Views\Product\ProductsList.cshtml" />
     <Content Include="Views\Product\Save.cshtml" />
     <Content Include="Views\Manufacturer\Create.cshtml" />
     <Content Include="Views\Manufacturer\Delete.cshtml" />
@@ -346,6 +349,8 @@
     <Content Include="Views\Category\Index.cshtml" />
     <Content Include="Views\Shared\_CategoriesPartial.cshtml" />
     <Content Include="Views\Shared\_YearsPartial.cshtml" />
+    <Content Include="Views\Admin\Users.cshtml" />
+    <Content Include="Views\Shared\_IsInRolePartial.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

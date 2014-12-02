@@ -1,4 +1,8 @@
 ﻿using Catalogue.Models.Entities;
+using Catalogue.Models.Infrastructure;
+using Catalogue.Models.Services.Contracts;
+using Catalogue.Models.Services.Models;
+using Catalogue.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -9,92 +13,183 @@ using System.Web.Mvc;
 
 namespace Catalogue.Web.Controllers
 {
-    [Authorize]
     public class AdminController : Controller
     {
-        private CatalogueContext db;
+        private IAdminService adminServices;
+        private const string RedirectToUsers = "Users";
 
-        public AdminController(CatalogueContext db)
+        public AdminController(IAdminService adminServices)
         {
-            this.db = db;
+            this.adminServices = adminServices;
         }
 
-        public ActionResult CustomersList()
+        public ActionResult Users(int? page)
         {
-            var customers = db.Users.ToList();
+            PagedList<User> userPages = adminServices.GetUsers(page);
 
-            return View(customers);
+            var usersListViewModels = new UsersListViewModels()
+            {
+                Users = userPages.Items.ToList(),
+                Count = userPages.PageCount,
+                Page = userPages.CurrentPage
+            };
+
+            return View(usersListViewModels);
         }
 
-        public ActionResult ProductsList()
-        {
-            var products = db.Products.ToList();
-
-            return View(products);
-        }
-
-        public ActionResult CustomerEdit(string id)
+        public ActionResult EditUser(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.Users.Find(id);
+
+            User user = adminServices.Find(id);
+
             if (user == null)
             {
                 return HttpNotFound();
             }
-            return View(user);
+
+            UserRole userRoles = adminServices.GetUserRoles(user);
+
+            var userViewModel = new UserViewModels()
+            {
+                Id = user.Id,
+                UserName = user.UserName,
+                Email = user.Email,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                BirthDate = user.BirthDate,
+                Gender = user.Gender,
+                isAdmin = userRoles.IsAdmin,
+                isManager = userRoles.IsManager,
+                isModerator = userRoles.IsModerator
+            };
+
+            return View(userViewModel);
         }
 
-        // POST: /Test/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult CustomerEdit(User user)
+        public ActionResult EditUser(UserViewModels userViewModel, FormCollection form)
         {
+            UserRole userRoles = GetUserRoles(form);
+
             if (ModelState.IsValid)
             {
-                db.Entry(user).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("CustomersList");
+                var user = new User()
+                {
+                    Id = userViewModel.Id,
+                    UserName = userViewModel.UserName,
+                    FirstName = userViewModel.FirstName,
+                    LastName = userViewModel.LastName,
+                    Email = userViewModel.Email,
+                    Gender = userViewModel.Gender,
+                };
+
+                adminServices.Modify(user);
+                adminServices.ModifyUserRoles(user, userRoles);
+
+                return RedirectToAction(RedirectToUsers);
             }
-            return View(user);
+
+            return View(userViewModel);
         }
 
-        // GET: /Test/Delete/5
-        public ActionResult CustomerDelete(string id)
+        private static UserRole GetUserRoles(FormCollection form)
+        {
+            var isAdmin = false;
+            var isManager = false;
+            var isModerator = false;
+
+            if (form["admin"] != null)
+            {
+                isAdmin = true;
+            }
+
+            if (form["manager"] != null)
+            {
+                isManager = true;
+            }
+
+            if (form["moderator"] != null)
+            {
+                isModerator = true;
+            }
+
+            UserRole roles = new UserRole()
+            {
+                IsAdmin = isAdmin,
+                IsManager = isManager,
+                IsModerator = isModerator
+            };
+
+            return roles;
+        }
+
+        public ActionResult DeleteUser(string id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            User user = db.Users.Find(id);
+
+            User user = adminServices.Find(id);
+
             if (user == null)
             {
                 return HttpNotFound();
             }
-            return View(user);
+
+            var userViewModels = new UserViewModels()
+            {
+                Id = user.Id,
+                UserName = user.UserName,
+                Email = user.Email,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                BirthDate = user.BirthDate,
+                Gender = user.Gender
+            };
+
+            return View(userViewModels);
         }
 
-        // POST: /Test/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult CustomerDeleteConfirmed(string id)
+        public ActionResult DeleteUserConfirmed(string id)
         {
-            User user = db.Users.Find(id);
-            db.Users.Remove(user);
-            db.SaveChanges();
-            return RedirectToAction("CustomersList");
+            User user = adminServices.Find(id);
+            adminServices.Remove(user);
+
+            return RedirectToAction(RedirectToUsers);
         }
 
-        protected override void Dispose(bool disposing)
+        [ChildActionOnly]
+        public ActionResult UserRole(string id)
         {
-            if (disposing)
+            var model = new UserViewModels()
             {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
-        }
+                isAdmin = false,
+                isManager = false,
+                isModerator = false
+            };
 
+            if (adminServices.IsInRole(id, "Admin"))
+            {
+                model.isAdmin = true;
+            }
+            if (adminServices.IsInRole(id, "Manager"))
+            {
+                model.isManager = true;
+            }
+            if (adminServices.IsInRole(id, "Moderator"))
+            {
+                model.isModerator = true;
+            }
+
+            return PartialView("_IsInRolePartial", model);
+        }
     }
 }

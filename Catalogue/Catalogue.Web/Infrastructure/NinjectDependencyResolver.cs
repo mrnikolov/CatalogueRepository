@@ -10,6 +10,7 @@ using Catalogue.Models.Services;
 using Catalogue.Web.Controllers;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using Catalogue.Models.Services.Contracts;
 
 namespace Catalogue.Web.Infrastructure
 {
@@ -39,6 +40,7 @@ namespace Catalogue.Web.Infrastructure
             kernel.Bind<IProductService>().To<ProductService>();
             kernel.Bind<IManufacturerService>().To<ManufacturerService>();
             kernel.Bind<ICategoryService>().To<CategoryService>();
+            kernel.Bind<IAdminService>().To<AdminService>();
         }
     }
 }

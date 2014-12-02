@@ -24,7 +24,7 @@ namespace Catalogue.Models.Entities
         [DataType(DataType.Date)]
         public DateTime? BirthDate { get; set; }
 
-        public Gender Gender { get; set; }
+        public Gender? Gender { get; set; }
 
         public virtual ICollection<Wishlist> Wishlists { get; set; }
 
@@ -32,7 +32,7 @@ namespace Catalogue.Models.Entities
 
     public enum Gender
     {
-        Male = 1,
-        Female = 2
+        Male = 0,
+        Female = 1
     }
 }

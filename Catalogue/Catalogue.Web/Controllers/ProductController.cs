@@ -19,6 +19,13 @@ namespace Catalogue.Web.Controllers
             this.productServices = productServices;
         }
 
+        public ActionResult ProductsList()
+        {
+            var products = productServices.GetAll();
+
+            return View(products);
+        }
+
         [HttpGet]
         public ActionResult Save()
         {
